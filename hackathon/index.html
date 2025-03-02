@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Web Navigation with Voice & Movement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Mapbox CSS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet" />
+  <!-- Our Custom Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>Traffic Map (Voice & Movement)</h1>
+  <div class="search-container">
+    <input type="text" id="origin" placeholder="Origin" />
+    <button id="use-current-loc-btn">Use Current Location</button>
+    <input type="text" id="destination" placeholder="Destination" />
+    <select id="transport-mode">
+      <option value="driving">Driving</option>
+      <option value="walking">Walking</option>
+      <option value="cycling">Cycling</option>
+      <option value="bus">Public Transit</option>
+    </select>
+    <button id="find-route-btn">Find Routes</button>
+    <button id="start-nav-btn" disabled>Start Navigation</button>
+  </div>
+</header>
+
+<div class="container">
+  <!-- Left: Map -->
+  <div class="map-section">
+    <div id="map"></div>
+    <!-- Navigation pop-up for turn instructions -->
+    <div id="nav-popup" class="nav-popup" style="display:none;"></div>
+  </div>
+
+  <!-- Right: Info Panel -->
+  <div class="info-panel">
+    <!-- Traffic Overview (improved styling) -->
+    <div class="traffic-overview">
+      <h2>Traffic Overview</h2>
+      <div class="traffic-stats-container">
+        <div class="stat-item">
+          <label>Congestion</label>
+          <span id="congestion-level">N/A</span>
+        </div>
+        <div class="stat-item">
+          <label>Avg Speed</label>
+          <span id="average-speed">N/A</span>
+        </div>
+        <div class="stat-item">
+          <label>Incidents</label>
+          <span id="active-incidents">0</span>
+        </div>
+      </div>
+      <p class="traffic-status-line">
+        <strong>Current Traffic:</strong> <span id="traffic-status">Loading...</span>
+      </p>
+    </div>
+
+    <!-- Route Information -->
+    <div class="route-info">
+      <h3>Route Information</h3>
+      <p><strong>Mode:</strong> <span id="route-mode">N/A</span></p>
+      <p><strong>Distance:</strong> <span id="route-distance">N/A</span></p>
+      <p><strong>Estimated Time:</strong> <span id="route-duration">N/A</span></p>
+      <p><strong>Predicted Congestion:</strong> <span id="route-prediction">N/A</span></p>
+      <ol class="turn-by-turn" id="turn-by-turn"></ol>
+    </div>
+
+    <!-- Sub-sections -->
+    <div class="sub-section">
+      <h4>Main Route</h4>
+      <p id="main-route-info">No route selected</p>
+    </div>
+    <div class="sub-section">
+      <h4>Alternative Routes</h4>
+      <ul id="alternative-routes">
+        <li>No alternatives yet</li>
+      </ul>
+    </div>
+    <div class="sub-section">
+      <h4>Public Transit Updates</h4>
+      <p id="public-transit">Not available</p>
+    </div>
+  </div>
+</div>
+
+<!-- Autocomplete Suggestions -->
+<div id="origin-suggestions" class="suggestions" style="display:none;"></div>
+<div id="destination-suggestions" class="suggestions" style="display:none;"></div>
+
+<!-- Mapbox JS -->
+<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+<!-- Our main script -->
+<script src="app.js"></script>
+</body>
+</html>
